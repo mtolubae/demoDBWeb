@@ -1,12 +1,10 @@
 package com.example.demoDBWeb.Service;
 
-import com.example.demoDBWeb.Model.Department;
-import com.example.demoDBWeb.Model.Employee;
-import com.example.demoDBWeb.Model.Employee1;
-import com.example.demoDBWeb.Model.Student;
+import com.example.demoDBWeb.Model.*;
 import com.example.demoDBWeb.Repository.DepartmentRepo;
 import com.example.demoDBWeb.Repository.EmployeeRepo;
 import com.example.demoDBWeb.Repository.StudentRepo;
+import com.example.demoDBWeb.Repository.TeacherRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +15,14 @@ public class EmployeeService {
     private EmployeeRepo emprepo;
     private StudentRepo studrepo;
     private DepartmentRepo deprepo;
+    private TeacherRepo teacherRepo;
 
     public EmployeeService(EmployeeRepo emprepo, StudentRepo studrepo,
-                           DepartmentRepo deprepo) {
+                           DepartmentRepo deprepo, TeacherRepo teacherRepo) {
         this.emprepo = emprepo;
         this.studrepo = studrepo;
         this.deprepo = deprepo;
+        this.teacherRepo = teacherRepo;
     }
 
     public EmployeeRepo getEmprepo() {
@@ -47,6 +47,17 @@ public class EmployeeService {
         ee.setSalary(e.getSalary());
         ee.setRole(e.getRole());
         emprepo.save(ee);
+    }
+
+    public void addTeacher(Teacher1 t1){
+        Teacher t = new Teacher();
+        t.setName(t1.getName());
+        Department d;
+        for(int i=0; i<t1.getDepartment_idlist().size();i++){
+            d = deprepo.findById(t1.getDepartment_idlist().get(i)).get();
+            t.getDepartmentList().add(d);
+        }
+        teacherRepo.save(t);
     }
 
     public List<Student> listStudents(){

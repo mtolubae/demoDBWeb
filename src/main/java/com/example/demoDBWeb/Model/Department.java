@@ -19,7 +19,7 @@ public class Department {
     @OneToMany(mappedBy = "department")
     private List<Employee> employeeList;
 
-    @ManyToMany(mappedBy = "departmentList")
+    @ManyToMany(mappedBy = "departmentList",cascade = CascadeType.ALL)
     private List<Teacher> teacherList;
 
     public Department(String name) {

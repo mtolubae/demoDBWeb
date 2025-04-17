@@ -1,9 +1,6 @@
 package com.example.demoDBWeb.Controller;
 
-import com.example.demoDBWeb.Model.Department;
-import com.example.demoDBWeb.Model.Employee;
-import com.example.demoDBWeb.Model.Employee1;
-import com.example.demoDBWeb.Model.Student;
+import com.example.demoDBWeb.Model.*;
 import com.example.demoDBWeb.Service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,6 +56,12 @@ public class EmployeeController {
     public void departmentUpdate(@RequestParam Long empid, @RequestParam Long depid){
         empservice.updateDepartment(empid,depid);
     }
+
+    @PostMapping("teacher/add")
+    public void addTeacher(@RequestBody Teacher1 t){
+        empservice.addTeacher(t);
+    }
+
 
 //    @PostMapping("department/{depid}/add/{empid}")
 //    public void addEmployee2Department(@PathVariable Long empid,
